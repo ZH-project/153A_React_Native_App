@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import {Text, TextInput, View, Button} from 'react-native';
+import {Text, TextInput, SafeAreaView, Button} from 'react-native';
 import Custom from './CustomComponent';
 
 const Counter = () => {
     const [text, setText] = useState('');
     const [number, setNumber] = useState(0);
     return (
-        <View style={{padding: 10, fontSize: 30}}>
+        <SafeAreaView style={{padding: 10, fontSize: 30}}>
             <TextInput
                 style={{height: 60, fontSize:30}}
                 placeholder="Placeholder for TextInput"
@@ -21,7 +21,7 @@ const Counter = () => {
             </Text>
             <Button title='Add' onPress = {() => {setNumber(number+1)}}/>
             <Button title='Delete' onPress = {() => {setNumber(number-1)}}/>
-        </View>
+        </SafeAreaView>
   );
 };
 

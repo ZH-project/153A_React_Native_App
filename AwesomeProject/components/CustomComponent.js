@@ -1,9 +1,9 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {SafeAreaView, Text} from 'react-native';
 
 const Custom = ({text}) => {
     return (
-      <View style={{flex: 1, 
+      <SafeAreaView style={{flex: 1, 
                     justifyContent: 'center',
                     alignItems: 'center',
                     margin:20,
@@ -12,10 +12,9 @@ const Custom = ({text}) => {
             <Text style = {{fontSize: 30}}>
              Here is custom component 🐱 {text} 🐕
             </Text>
-      </View>
+      </SafeAreaView>
     )
   }
-
 
 
 export default Custom;
