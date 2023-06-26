@@ -1,106 +1,108 @@
-import React, {useState, useContext, useEffect} from 'react';
-import {Text, TextInput, Pressable,  SafeAreaView, StyleSheet, Button, Image} from 'react-native';
-import UserContext from './UserContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, {useState, useEffect, useContext} from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Text, StyleSheet, Button, SafeAreaView, TextInput } from 'react-native';
+import { createContext } from 'react';
+import { MaterialIcons} from '@expo/vector-icons';
+import UsingCamera from './UsingCamera';
 
+import TheAppScreen from './TheAppScreen';
 
+export const UsernameContext = createContext({name: '', age:0, weight:0, height:0});
 
-export default function TheApp() {
-    const userData = useContext(UserContext);
-    const [imageURI, setImageURI] = useState('');
+const ImageMakerScreen = ()=>{
+	//const userInfo = useContext(UsernameContext);
+  return (
+    <SafeAreaView style={styles.screen}>
+        <Text>Image Maker</Text>
+        <TheAppScreen />
+    </SafeAreaView>
+  );
+}
 
-    const saveImage = async () => {
-        try {
-            const uri = imageURI; 
-            await AsyncStorage.setItem('image', imageURI);
-            setImageURI(imageURI);
-            console.log('Image saved successfully!');
-        } catch (error) {
-            console.log('Error saving image:', error);
-        }
-    };
-
-    const loadImage = async () => {
-        try {
-            const storedImageURI = await AsyncStorage.getItem('image');
-            setImageURI(storedImageURI);
-            console.log('Image loaded successfully!');
-        } catch (error) {
-            console.log('Error loading image:', error);
-        }
-    };
-
-    const clearData = async () => {
-        try {
-          await AsyncStorage.clear()
-        } catch(e) {
-          console.log("error in clearData ")
-          console.dir(e)
-        }
-  }
-
-   useEffect(() => {saveImage}, [])
-  
+const GifMakerScreen =() => {
+	//const userInfo = useContext(UsernameContext);
     return (
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.paragraph}>Hello, {userData.username}</Text>
-        <Text style={styles.paragraph}>Enter the URI you want to store to your local device.</Text>
-        <TextInput style={styles.input}
-            placeholder='enter the uri' 
-            value={imageURI}
-            onChangeText={text => {
-                   setImageURI(""+text)
-            }}
-            onKeyPress={saveImage}
-        ></TextInput>
-        <Image source={{ uri: imageURI}} style={{ width: 400, height: 300 }} />
-        <SafeAreaView style={styles.buttonDir}>
-        <Pressable onPress={() => {clearData();setImageURI('')}} style={styles.button}>
-          <Text style={styles.buttonText}>Clear</Text>
-        </Pressable>
-        <Pressable onPress={() => saveImage()} style={styles.button}>
-          <Text style={styles.buttonText}>Save</Text>
-        </Pressable>
-        <Pressable onPress={() => loadImage()} style={styles.button}>
-          <Text style={styles.buttonText}>Load</Text>
-        </Pressable>
-        </SafeAreaView>
+      <SafeAreaView style={styles.screen}>
+        <Text>Gif Maker</Text>
       </SafeAreaView>
     );
   }
 
+  const CameraScreen =() => {
+    return (
+      <SafeAreaView style={styles.screen}>
+        <UsingCamera/>
+      </SafeAreaView>
+    );
+  }
 
-const styles = StyleSheet.create({
-    container: {
-      backgroundColor: '#ecf0f1',
-      padding: 8,
-      margin: 10,
+  const SettingsScreen =() => {
+	//const userInfo = useContext(UsernameContext);
+    return (
+      <SafeAreaView style={styles.screen}>
+        <Text>Placeholder</Text>
+
+      </SafeAreaView>
+    );
+  }
+
+const Tab = createBottomTabNavigator();
+
+export default function App() {
+	const [name, setName] = useState('');
+
+  return (
+	//<UsernameContext.Provider value={{}}>
+        <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ color, size }) => {
+              let iconName;
+            if (route.name === 'Image') {
+                iconName="photo";
+            } else if (route.name == 'Gif'){
+                iconName = 'gif';
+            } else if (route.name === 'Camera') {
+                iconName = 'camera';
+            }  
+            else if (route.name === 'Settings') {
+                iconName = 'settings';
+            }  
+                return <MaterialIcons name={iconName} size={size} color={color} />;
+            },
+            tabBarActiveTintColor: '#027AFF',
+            tabBarInactiveTintColor: 'gray',
+          })}
+        >
+        <Tab.Screen name="Image" component={ImageMakerScreen} />
+        <Tab.Screen name="Gif" component={GifMakerScreen} />
+        <Tab.Screen name="Camera" component={CameraScreen} />
+        <Tab.Screen name="Settings" component={SettingsScreen} />
+        </Tab.Navigator>
+      </NavigationContainer>
+	//</UsernameContext.Provider>
+    );
+  }
+
+  const styles = StyleSheet.create({
+    screen:{
+		padding: 4,
+		flex:1,
     },
-    paragraph: {
-      fontSize: 20,
-      fontWeight: 'bold',
+	header:{
+		flex: 1,
+		fontSize: 22,
+	},
+    input: {
+      	margin: 5,
+		fontSize: 22,
+		flexDirection: 'row',
+		flex: 1,
+		justifyContent:'space-evenly',
     },
-    input:{
-        width: 800,
-        height: 40,
-        fontSize: 20,
-        borderColor: 'yellowgreen',
-        borderWidth: 2,
-    },
-    buttonDir:{
-        flexDirection:'row',
-    },
-    button: {
-        borderRadius: 10,
-        width: 200,
-        height: 70,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'lightblue',
-        margin:10,
-    },
-    buttonText:{
-        fontSize:24,
-        fontWeight:'bold',
-    },
+	button:{
+		alignSelf: 'center',
+		width:'100%',
+	},
   });

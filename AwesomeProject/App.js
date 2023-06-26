@@ -1,3 +1,3 @@
-import App from './components/StackDemo';
+import App from './components/TheApp'
 
-export default App
+export default App;
