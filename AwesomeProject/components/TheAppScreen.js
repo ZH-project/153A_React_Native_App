@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View, } from 'react-native';
+import { StyleSheet, View, Keyboard} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import ImageViewer from './ImageViewer';
 import Button from './Button';
@@ -9,10 +9,10 @@ import IconButton from './IconButton';
 import EmojiPicker from './EmojiPicker';
 import EmojiList from './EmojiList';
 import EmojiSticker from './EmojiSticker';
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { GestureHandlerRootView, TextInput } from "react-native-gesture-handler";
 import * as MediaLibrary from 'expo-media-library';
 import { captureRef } from 'react-native-view-shot';
-import UsingCamera from './UsingCamera';
+import InputText from './inputText';
 
 
 
@@ -25,6 +25,7 @@ export default function App() {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [pickedEmoji, setPickedEmoji] = useState(null);
     const imageRef = useRef();
+    const [inputText, setInputText] = useState(null);
 
     if (status === null) {
         requestPermission();
@@ -82,12 +83,20 @@ export default function App() {
                 selectedImage={selectedImage}
             />
             {pickedEmoji !== null ? <EmojiSticker imageSize={40} stickerSource={pickedEmoji} /> : null}
+            {inputText !== null ? <InputText textSize={40} text={inputText} /> : null}
         </View>
         </View>
         {showAppOptions ? (<View style={styles.optionsContainer}>
+            <TextInput 
+                placeholder='enter text here' 
+                placeholderTextColor={'green'} 
+                value={inputText} 
+                onChangeText={text => {setInputText(text)}}
+                backgroundColor='white' 
+                onSubmitEditing={Keyboard.canceled}
+            />
             <View style={styles.optionsRow}>
                 <IconButton icon="refresh" label="Reset" onPress={onReset} />
-                <CircleButton onPress={onAddSticker} />
                 <IconButton icon="save-alt" label="Save" onPress={onSaveImageAsync} />
             </View>
             </View>
@@ -98,9 +107,6 @@ export default function App() {
             {/* <Button theme="secondary" label="Take a photo" /> */}
             </View>
         )}
-            <EmojiPicker isVisible={isModalVisible} onClose={onModalClose}>
-            <EmojiList onSelect={setPickedEmoji} onCloseModal={onModalClose} />
-            </EmojiPicker>
         <StatusBar style="auto" />
     </GestureHandlerRootView>
   );
