@@ -6,14 +6,10 @@ import ImageViewer from './ImageViewer';
 import Button from './Button';
 import CircleButton from './CircleButton';
 import IconButton from './IconButton';
-import EmojiPicker from './EmojiPicker';
-import EmojiList from './EmojiList';
-import EmojiSticker from './EmojiSticker';
 import { GestureHandlerRootView, TextInput } from "react-native-gesture-handler";
 import * as MediaLibrary from 'expo-media-library';
 import { captureRef } from 'react-native-view-shot';
 import InputText from './inputText';
-
 
 
 const PlaceholderImage = require('./../assets/images/background-image.png');
@@ -22,11 +18,9 @@ export default function App() {
     const [status, requestPermission] = MediaLibrary.usePermissions();
     const [selectedImage, setSelectedImage] = useState(null);
     const [showAppOptions, setShowAppOptions] = useState(false);
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const [pickedEmoji, setPickedEmoji] = useState(null);
     const imageRef = useRef();
     const [inputText, setInputText] = useState(null);
-
+    
     if (status === null) {
         requestPermission();
       }
@@ -39,26 +33,18 @@ export default function App() {
     const onSaveImageAsync = async () => {
         try {
         const localUri = await captureRef(imageRef, {
-            height: 440,
+           height: 440,
             quality: 1,
         });
     
         await MediaLibrary.saveToLibraryAsync(localUri);
         if (localUri) {
-            alert("Saved!");
+          alert("Saved!");
         }
         } catch (e) {
         console.log(e);
         }
     };     
-
-      const onAddSticker = () => {
-        setIsModalVisible(true);
-      };
-    
-      const onModalClose = () => {
-        setIsModalVisible(false);
-      };
 
     const pickImageAsync = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -70,7 +56,7 @@ export default function App() {
             setSelectedImage(result.assets[0].uri);
             setShowAppOptions(true);
         } else {
-            alert('You did not select any image.');
+            //alert('You did not select any image.');
         }
     };
 
@@ -82,8 +68,7 @@ export default function App() {
                 placeholderImageSource={PlaceholderImage}
                 selectedImage={selectedImage}
             />
-            {pickedEmoji !== null ? <EmojiSticker imageSize={40} stickerSource={pickedEmoji} /> : null}
-            {inputText !== null ? <InputText textSize={40} text={inputText} /> : null}
+            {inputText !== null ? <InputText text={inputText} /> : null}
         </View>
         </View>
         {showAppOptions ? (<View style={styles.optionsContainer}>
@@ -132,7 +117,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   optionsContainer: {
-    position: 'absolute',
+    position:'relative',
     bottom: 80,
   },
   optionsRow: {
