@@ -6,7 +6,7 @@ import Animated, {
   useAnimatedGestureHandler,
   withSpring,
 } from 'react-native-reanimated';
-import TextFont from './TextFont';
+import TextSettings from './TextSettings';
 
 
 const AnimatedView = Animated.createAnimatedComponent(View);
@@ -43,7 +43,7 @@ export default function InputText({text}) {
   return (
     <PanGestureHandler onGestureEvent={onDrag}>
       <AnimatedView style={[containerStyle, { top: -350 }]}>
-        <TextFont text={text}/>
+        <TextSettings text={text}/>
       </AnimatedView>
     </PanGestureHandler>
   );
