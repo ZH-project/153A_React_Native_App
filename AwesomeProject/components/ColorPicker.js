@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, TouchableOpacity, Modal } from 'react-native';
 import Slider from '@react-native-community/slider';
 
-const ColorPicker = ({textColor, setTextColor}) => {
-  const [red, setRed] = useState(0);
-  const [green, setGreen] = useState(0);
-  const [blue, setBlue] = useState(0);
+const ColorPicker = ({setTextColor, setColorSettings}) => {
+  const [red, setRed] = useState(255);
+  const [green, setGreen] = useState(255);
+  const [blue, setBlue] = useState(255);
   const [modalVisible, setModalVisible] = useState(true);
 
 
@@ -60,7 +60,7 @@ const ColorPicker = ({textColor, setTextColor}) => {
         onValueChange={(value) => handleColorChange('blue', value)}
       />
 
-    <TouchableOpacity onPress={()=>{setTextColor(color); setModalVisible(false)}} >
+    <TouchableOpacity onPress={()=>{setTextColor(color); setModalVisible(false); setColorSettings(false)}} >
     <Text style={{ fontSize: 20, backgroundColor:'white', marginLeft: '45%',
     marginTop: '15%'}} >Save</Text></TouchableOpacity>
     </Modal>

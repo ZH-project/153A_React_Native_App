@@ -5,7 +5,7 @@ export default function Button({ label, theme, onPress }) {
   if (theme === "primary") {
     return (
       <View
-      style={[styles.buttonContainer, { borderWidth: 4, borderColor: "#ffd33d", borderRadius: 18 }]}
+      style={[styles.buttonContainer, { borderWidth: 4, borderColor: "#98EECC", borderRadius: 18 }]}
       >
         <Pressable
           style={[styles.button, { backgroundColor: "#fff" }]}
@@ -24,14 +24,14 @@ export default function Button({ label, theme, onPress }) {
   }else if (theme === "secondary") {
     return (
       <View
-      style={[styles.buttonContainer, { borderWidth: 4, borderColor: "#ffd33d", borderRadius: 18 }]}
+      style={[styles.buttonContainer, { borderWidth: 4, borderColor: "#98EECC", borderRadius: 18 }]}
       >
         <Pressable
           style={[styles.button, { backgroundColor: "#fff" }]}
           onPress={onPress}
         >
           <FontAwesome
-            name="camera"
+            name="check"
             size={18}
             color="#25292e"
             style={styles.buttonIcon}
@@ -53,9 +53,10 @@ export default function Button({ label, theme, onPress }) {
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    width: 320,
-    height: 68,
+    width: 270,
+    height: 64,
     marginHorizontal: 20,
+    marginBottom: 18,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 3,
@@ -73,6 +74,6 @@ const styles = StyleSheet.create({
   },
   buttonLabel: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 18,
   },
 });

@@ -10,13 +10,15 @@ import { GestureHandlerRootView, TextInput } from "react-native-gesture-handler"
 import * as MediaLibrary from 'expo-media-library';
 import { captureRef } from 'react-native-view-shot';
 import InputText from './inputText';
+import SecondImage from './SecondImage';
 
 
-const PlaceholderImage = require('./../assets/images/background-image.png');
+const PlaceholderImage = require('./../assets/images/background.png');
 
 export default function App() {
     const [status, requestPermission] = MediaLibrary.usePermissions();
     const [selectedImage, setSelectedImage] = useState(null);
+    const [selectedSecondImage, setSelectedSecondImage] = useState(null);
     const [showAppOptions, setShowAppOptions] = useState(false);
     const imageRef = useRef();
     const [inputText, setInputText] = useState(null);
@@ -26,6 +28,9 @@ export default function App() {
       }
 
     const onReset = () => {
+        setInputText(null);
+        setSelectedImage(null);
+        setSelectedSecondImage(null);
         setShowAppOptions(false);
       };
     
@@ -60,6 +65,18 @@ export default function App() {
         }
     };
 
+    const pickSecondImageAsync = async () => {
+      let result = await ImagePicker.launchImageLibraryAsync({
+          allowsEditing: true,
+          quality: 1,
+        });
+
+      if (!result.canceled) {
+          setSelectedSecondImage(result.assets[0].uri);
+          setShowAppOptions(true);
+      }
+  };
+
   return (
     <GestureHandlerRootView style={styles.container}>
         <View style={styles.imageContainer}>
@@ -69,26 +86,28 @@ export default function App() {
                 selectedImage={selectedImage}
             />
             {inputText !== null ? <InputText text={inputText} /> : null}
+            {selectedSecondImage !== null ? <SecondImage selectdSecondImage={selectedSecondImage} /> : null}
         </View>
         </View>
         {showAppOptions ? (<View style={styles.optionsContainer}>
             <TextInput 
+                style={{fontSize:30, }}
                 placeholder='enter text here' 
-                placeholderTextColor={'green'} 
-                value={inputText} 
+                value={inputText||""} 
                 onChangeText={text => {setInputText(text)}}
-                backgroundColor='white' 
+                backgroundColor='#D0F5BE' 
                 onSubmitEditing={Keyboard.canceled}
             />
             <View style={styles.optionsRow}>
                 <IconButton icon="refresh" label="Reset" onPress={onReset} />
                 <IconButton icon="save-alt" label="Save" onPress={onSaveImageAsync} />
+                <IconButton icon="add-a-photo" label="Add" onPress={pickSecondImageAsync}/>
             </View>
             </View>
             ) : (
             <View style={styles.footerContainer}>
             <Button theme="primary" label="Choose a photo" onPress={pickImageAsync} />
-            <Button label="Use this photo" onPress={() => setShowAppOptions(true)} />
+            <Button theme='secondary' label="Use this photo" onPress={() => setShowAppOptions(true)} />
             {/* <Button theme="secondary" label="Take a photo" /> */}
             </View>
         )}
@@ -113,7 +132,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
   },
   footerContainer: {
-    flex: 1 / 3,
+    flex: 5/12,
     alignItems: 'center',
   },
   optionsContainer: {
@@ -123,5 +142,6 @@ const styles = StyleSheet.create({
   optionsRow: {
     alignItems: 'center',
     flexDirection: 'row',
+    top: 30,
   },
 });
