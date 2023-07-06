@@ -45,7 +45,7 @@ export default function SecondImage({ selectdSecondImage }) {
 
   return (
     <PanGestureHandler onGestureEvent={onDrag}>
-      <AnimatedView style={[containerStyle, { top: -200 }]}>
+      <AnimatedView style={[containerStyle, { top: -280 }]}>
         {/* <ImageBackground style={{ width: imageSize.width, height: imageSize.height }} source={secondImage} /> */}
         <ImageSettings image={secondImage} />
       </AnimatedView>

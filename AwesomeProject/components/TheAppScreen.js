@@ -38,7 +38,7 @@ export default function App() {
     const onSaveImageAsync = async () => {
         try {
         const localUri = await captureRef(imageRef, {
-           height: 440,
+           height: 420,
             quality: 1,
         });
     
@@ -85,8 +85,9 @@ export default function App() {
                 placeholderImageSource={PlaceholderImage}
                 selectedImage={selectedImage}
             />
-            {inputText !== null ? <InputText text={inputText} /> : null}
             {selectedSecondImage !== null ? <SecondImage selectdSecondImage={selectedSecondImage} /> : null}
+            {inputText !== null ? <InputText text={inputText} /> : null}
+            
         </View>
         </View>
         {showAppOptions ? (<View style={styles.optionsContainer}>
@@ -128,7 +129,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 320,
-    height: 440,
+    height: 420,
     borderRadius: 18,
   },
   footerContainer: {

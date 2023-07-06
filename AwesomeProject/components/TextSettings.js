@@ -13,18 +13,22 @@ const TextSettings = ({text}) => {
   return (
     <SafeAreaView>
       {!textSettings ? ( <SafeAreaView>
+        <TouchableOpacity onPress={() => setTextSettings(true)}>
+          <Text style={{ fontSize: textFont, color: textColor }}>{text}</Text>
+        </TouchableOpacity>
+        
         <SafeAreaView style={{flexDirection:'row'}}>
-        <TouchableOpacity style={{marginRight: 45, marginBottom: 10}} onPress={() => setTextFont(textFont + 2)}>
+        <TouchableOpacity style={{marginRight: 50, marginBottom: 15}} onPress={() => setTextFont(textFont + 2)}>
         {/* <Text style={{ fontSize: 20, backgroundColor:'lightpink'  }}>Increase Font Size</Text> */}
         <Ionicons name='add' size={32} color="#fff" />
         </TouchableOpacity>
 
-        <TouchableOpacity style={{marginRight: 45, marginBottom: 10}} onPress={() => setTextFont(textFont - 2)}>
+        <TouchableOpacity style={{marginRight: 50, marginBottom: 15}} onPress={() => setTextFont(textFont - 2)}>
           {/* <Text style={{ fontSize: 20 , backgroundColor:'lightgreen' }}>Decrease Font Size</Text> */}
           <Ionicons name='remove' size={32} color="#fff" />
         </TouchableOpacity>
         
-        <TouchableOpacity style={{marginRight: 45, marginBottom: 10}} onPress={() => setColorSettings(true)}>
+        <TouchableOpacity style={{marginRight: 50, marginBottom: 15}} onPress={() => setColorSettings(true)}>
           <Ionicons name='brush' size={32} color="#fff" />
           {colorSettings && (<ColorPicker
           setColorSettings={setColorSettings}
@@ -33,9 +37,6 @@ const TextSettings = ({text}) => {
         </TouchableOpacity> 
         </SafeAreaView>
 
-        <TouchableOpacity onPress={() => setTextSettings(true)}>
-          <Text style={{ fontSize: textFont, color: textColor }}>{text}</Text>
-        </TouchableOpacity>
         </SafeAreaView>):
       (<SafeAreaView>
           <TouchableOpacity onPress={() => setTextSettings(false)}>
