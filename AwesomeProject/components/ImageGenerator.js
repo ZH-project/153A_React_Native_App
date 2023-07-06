@@ -117,7 +117,12 @@ export default function ImageGenerator() {
     },
     button:{
         flexDirection:'row',
-        justifyContent:'center'
+        justifyContent:'center',
+        alignItems:'center',
+        backgroundColor:'#98EECC',
+        height:40,
+        width:110,
+        borderRadius: 36,
     },
     textinput:{
         width:"80%",

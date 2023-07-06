@@ -6,8 +6,7 @@ import { createContext } from 'react';
 import { MaterialIcons} from '@expo/vector-icons';
 import UsingCamera from './UsingCamera';
 import ImageGenerator from './ImageGenerator';
-
-import TheAppScreen from './TheAppScreen';
+import ImageMaker from './ImageMaker';
 
 export const UsernameContext = createContext({name: '', age:0, weight:0, height:0});
 
@@ -15,7 +14,7 @@ const ImageMakerScreen = ()=>{
 	//const userInfo = useContext(UsernameContext);
   return (
     <SafeAreaView style={styles.screen}>
-        <TheAppScreen />
+        <ImageMaker />
     </SafeAreaView>
   );
 }

@@ -15,7 +15,7 @@ import SecondImage from './SecondImage';
 
 const PlaceholderImage = require('./../assets/images/background.png');
 
-export default function App() {
+export default function ImageMaker() {
     const [status, requestPermission] = MediaLibrary.usePermissions();
     const [selectedImage, setSelectedImage] = useState(null);
     const [selectedSecondImage, setSelectedSecondImage] = useState(null);

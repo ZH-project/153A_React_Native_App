@@ -1,8 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView, Button, Image } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Button, Image, TouchableOpacity} from 'react-native';
 import { useEffect, useRef, useState } from 'react';
 import { Camera } from 'expo-camera';
-import { shareAsync } from 'expo-sharing';
 import * as MediaLibrary from 'expo-media-library';
 
 export default function UsingCamera() {
@@ -38,12 +37,6 @@ export default function UsingCamera() {
   };
 
   if (photo) {
-    let sharePic = () => {
-      shareAsync(photo.uri).then(() => {
-        setPhoto(undefined);
-      });
-    };
-
     let savePhoto = () => {
       MediaLibrary.saveToLibraryAsync(photo.uri).then(() => {
         setPhoto(undefined);
@@ -53,9 +46,8 @@ export default function UsingCamera() {
     return (
       <SafeAreaView style={styles.container}>
         <Image style={styles.preview} source={{ uri: "data:image/jpg;base64," + photo.base64 }} />
-        <Button title="Share" onPress={sharePic} />
-        {hasMediaLibraryPermission ? <Button title="Save" onPress={savePhoto} /> : undefined}
-        <Button title="Discard" onPress={() => setPhoto(undefined)} />
+        {hasMediaLibraryPermission ? <Button color='#000' title="Save" onPress={savePhoto}/> : undefined}
+        <Button color='#000' title="Discard" onPress={() => setPhoto(undefined)}  />        
       </SafeAreaView>
     );
   }
@@ -63,7 +55,7 @@ export default function UsingCamera() {
   return (
     <Camera style={styles.container} ref={cameraRef}>
       <View style={styles.buttonContainer}>
-        <Button title="Take Pic" onPress={takePic} />
+        <Button title="Take Pic" onPress={takePic} color={'#000'} />
       </View>
       <StatusBar style="auto" />
     </Camera>
@@ -77,8 +69,10 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   buttonContainer: {
-    backgroundColor: '#fff',
+    backgroundColor:'#98EECC',
     marginBottom: 40,
+    borderRadius: 42,
+    height:40,
   },
   preview: {
     alignSelf: 'stretch',
