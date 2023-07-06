@@ -5,6 +5,7 @@ import { Text, StyleSheet, Button, SafeAreaView, TextInput } from 'react-native'
 import { createContext } from 'react';
 import { MaterialIcons} from '@expo/vector-icons';
 import UsingCamera from './UsingCamera';
+import ImageGenerator from './ImageGenerator';
 
 import TheAppScreen from './TheAppScreen';
 
@@ -14,17 +15,15 @@ const ImageMakerScreen = ()=>{
 	//const userInfo = useContext(UsernameContext);
   return (
     <SafeAreaView style={styles.screen}>
-        <Text>Image Maker</Text>
         <TheAppScreen />
     </SafeAreaView>
   );
 }
 
-const GifMakerScreen =() => {
-	//const userInfo = useContext(UsernameContext);
+const ImageGeneratorrScreen =() => {
     return (
       <SafeAreaView style={styles.screen}>
-        <Text>Gif Maker</Text>
+        <ImageGenerator />
       </SafeAreaView>
     );
   }
@@ -59,26 +58,26 @@ export default function App() {
           screenOptions={({ route }) => ({
             tabBarIcon: ({ color, size }) => {
               let iconName;
-            if (route.name === 'Image') {
+            if (route.name === 'Image Maker') {
                 iconName="photo";
-            } else if (route.name == 'Gif'){
-                iconName = 'gif';
+            } else if (route.name == 'Image Generator'){
+                iconName = "cloud";
             } else if (route.name === 'Camera') {
                 iconName = 'camera';
             }  
-            else if (route.name === 'Settings') {
-                iconName = 'settings';
-            }  
+            // else if (route.name === 'Settings') {
+            //     iconName = 'settings';
+            // }  
                 return <MaterialIcons name={iconName} size={size} color={color} />;
             },
             tabBarActiveTintColor: '#027AFF',
             tabBarInactiveTintColor: 'gray',
           })}
         >
-        <Tab.Screen name="Image" component={ImageMakerScreen} />
-        <Tab.Screen name="Gif" component={GifMakerScreen} />
+        <Tab.Screen name="Image Maker" component={ImageMakerScreen} />
+        <Tab.Screen name="Image Generator" component={ImageGeneratorrScreen} />
         <Tab.Screen name="Camera" component={CameraScreen} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
+        {/* <Tab.Screen name="Settings" component={SettingsScreen} /> */}
         </Tab.Navigator>
       </NavigationContainer>
 	//</UsernameContext.Provider>

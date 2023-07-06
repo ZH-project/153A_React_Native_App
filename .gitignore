@@ -9,6 +9,7 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
+open_api_key.js
 
 # macOS
 .DS_Store

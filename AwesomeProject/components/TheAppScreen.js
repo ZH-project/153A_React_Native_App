@@ -97,7 +97,7 @@ export default function App() {
                 value={inputText||""} 
                 onChangeText={text => {setInputText(text)}}
                 backgroundColor='#D0F5BE' 
-                onSubmitEditing={Keyboard.canceled}
+                onSubmitEditing={Keyboard.dismiss}
             />
             <View style={styles.optionsRow}>
                 <IconButton icon="refresh" label="Reset" onPress={onReset} />
