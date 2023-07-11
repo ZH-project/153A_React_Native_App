@@ -64,6 +64,7 @@ export default function ImageGenerator() {
               backgroundColor='#D0F5BE' 
               style={styles.textinput}
               onSubmitEditing={Keyboard.dismiss}
+              placeholder='enter image description here to generate AI image'
             />
           </View>
           <TouchableOpacity style={styles.button} onPress={generateImage}>
